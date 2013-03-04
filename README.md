@@ -1,4 +1,4 @@
-node-scandir[![Build Status](https://secure.travis-ci.org/sdolard/node-scandir.png?branch=master)](http://travis-ci.org/sdolard/node-scandir)
+node-scandir [![Build Status](https://travis-ci.org/sdolard/node-scandir.png?branch=master)](https://travis-ci.org/sdolard/node-scandir)
 A lib and a cli that returns filepath list contains in dirs
 ============
 
