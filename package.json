@@ -1,0 +1,35 @@
+{
+  "name": "scandir",
+  "version": "0.0.1",
+  "description": "simple recursive directory scan",
+  "main": "lib/scandir.js",
+  "bin": {
+    "scandir": "bin/scandir"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "pretest": "jsrevival -p \"describe, it\" -o \"properties: false, maxlen: 0, debug: false, bitwise: false, eqeq: false, newcap: false, undef: false, unparam: false, vars: false\" -r cli-hide-valid -R lib/ test/",
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sdolard/node-scandir.git"
+  },
+  "keywords": [
+    "readdir",
+    "recursive"
+  ],
+  "author": "sdolard@gmail.com",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "93b6c7035fcffaf7cd3473aebb7eaba278bc68f5",
+  "dependencies": {
+    "commander": "1.x.x"
+  },
+   "devDependencies" : {
+    "jsrevival": "0.1.x",
+    "mocha": "x.x.x"
+  }
+}
