@@ -1,6 +1,6 @@
 {
   "name": "scandir",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "simple recursive directory scan",
   "main": "lib/scandir.js",
   "bin": {
