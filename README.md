@@ -24,13 +24,14 @@ A lib and a cli that returns filepath list contains in dirs
 
     -h, --help                                  output usage information
     -V, --version                               output the version number
-    -r, --recursive                             Scan dir recursive
-    -w, --wildcard <wildcard>                   Wildcard
-    -e, --expression <regexp>                   Regular expression
-    -i, --insensitive                           Case insensitive. Default to false
-    -g, --greaterthan <size[B|kB|MB|GB|TB|EB]>  Return files greater than size (Bytes)
-    -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    Return files lower than size (Bytes)
-    -s, --showbrokenlink                        Show broken symbolic link
+    -r, --recursive                             scan dir recursive
+    -w, --wildcard <wildcard>                   wildcard
+    -e, --expression <regexp>                   regular expression
+    -i, --insensitive                           case insensitive. Default to false
+    -g, --greaterthan <size[B|kB|MB|GB|TB|EB]>  return files greater than size (Bytes)
+    -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    return files lower than size (Bytes)
+    -s, --showbrokenlink                        show broken symbolic link
+    -R, --reporter <cli,json>                   default to cli
     -d, --debug
 
 ```
@@ -41,10 +42,10 @@ A lib and a cli that returns filepath list contains in dirs
     /**
     * @class
     * @public
-    * @params [{object}] config
-    * @params [{booleab}] config.debug. Defautl false
-    * @event file({string} filePath, {Stats} stats)
-    * @event end > scan finished
+    * @params [{Object}] config
+    * @params [{Booleab}] config.debug. Defautl false
+    * @event file({String} filePath, {Stats} stats)
+    * @event end({Number} totalCount, {Number} totalSize}) > scan finished
     * @event error({Error} err)
     */
 
