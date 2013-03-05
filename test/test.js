@@ -139,7 +139,6 @@ describe('scandir lib', function(){
 				'qux': true
 			};
 			scan.on('file' , function(file, stats){
-				console.log(file + " " + stats.size);
 				assert(files[path.basename(file)]);
 				foundFile++;
 			});
