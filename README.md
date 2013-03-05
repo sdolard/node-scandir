@@ -14,7 +14,7 @@ A lib and a cli that returns filepath list contains in dirs
 ## CLI
 
 ```
-Usage: scandir [options] [command]
+  Usage: scandir [options] [command]
 
   Commands:
 
@@ -22,12 +22,15 @@ Usage: scandir [options] [command]
 
   Options:
 
-    -h, --help                 output usage information
-    -V, --version              output the version number
-    -r, --recursive            Scan dir recursive
-    -w, --wildcard <wildcard>  Wildcard
-    -e, --expression <regexp>  Regular expression
-    -i, --insensitive          Case insensitive. Default to false
+    -h, --help                                  output usage information
+    -V, --version                               output the version number
+    -r, --recursive                             Scan dir recursive
+    -w, --wildcard <wildcard>                   Wildcard
+    -e, --expression <regexp>                   Regular expression
+    -i, --insensitive                           Case insensitive. Default to false
+    -g, --greaterthan <size[B|kB|MB|GB|TB|EB]>  Return files greater than size (Bytes)
+    -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    Return files lower than size (Bytes)
+    -s, --showbrokenlink                        Show broken symbolic link
     -d, --debug
 
 ```
