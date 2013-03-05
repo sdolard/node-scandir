@@ -33,7 +33,39 @@ Usage: scandir [options] [command]
 ```
 
 ## LIB
+### ScanDir ctor
+```
+    /**
+    * @class
+    * @public
+    * @params [{object}] config
+    * @params [{booleab}] config.debug. Defautl false
+    * @event file({string} filePath, {Stats} stats)
+    * @event end > scan finished
+    * @event error({Error} err)
+    */
 
+```
+
+### ScanDir.prototype.scan
+```
+    /**
+    * @method
+    * @public
+    * @params <{object}> config
+    * @params <{string}> config.dir
+    * @params [{boolean}]config.recursive. Default to true.
+    * @params [{boolean}]config.insensitive. Default to false. Only available with String filter
+    * @params [{RegExp|String|undefined}] config.filter. String === exact match
+    * @params [{Number}] config.greaterthan. Bytes value
+    * @params [{Number}] config.lowerthan. Bytes value
+    * @params [{boolean}]config.showbrokenlink. Default to false.
+    */
+    ScanDir.prototype.scan
+
+```
+
+### Basic example
 
 ```
 var scandir = require('../lib/scandir').create();
