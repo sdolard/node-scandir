@@ -230,7 +230,10 @@ describe('scandir app', function(){
 		it('should find this files', function(done){
 			var child = exec(util.format('%s/../bin/scandir %s/foo.txt', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/foo.txt, 0 B\n');
+				assert.equal(stdout, [
+					'test/foo.txt, 0 B',
+					'1 file, 0 B',
+					''].join('\n'));
 				done();
 			});
 		});
@@ -240,7 +243,7 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			var child = exec(util.format('%s/../bin/scandir %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/baz/qux, 5 B\n');
+				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
 
@@ -254,6 +257,7 @@ describe('scandir app', function(){
 				assert.equal(stdout, [
 					'test/baz/quux/foobar.txt, 1 B',
 					'test/baz/qux, 5 B',
+					'2 files, 6 B',
 					''
 				].join('\n'));
 				done();
@@ -267,7 +271,7 @@ describe('scandir app', function(){
 
 			var child = exec(util.format('%s/../bin/scandir -e qux -r %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/baz/qux, 5 B\n');
+				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
 		});
@@ -278,7 +282,7 @@ describe('scandir app', function(){
 
 			var child = exec(util.format('%s/../bin/scandir -i -e QUX -r %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/baz/qux, 5 B\n');
+				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
 		});
@@ -292,6 +296,7 @@ describe('scandir app', function(){
 				assert.equal(stdout, [
 					'test/bar.txt, 10 B',
 					'test/foo.txt, 0 B',
+					'2 files, 10 B',
 					''
 				].join('\n'));
 				done();
@@ -308,6 +313,7 @@ describe('scandir app', function(){
 					'test/bar.txt, 10 B',
 					'test/baz/quux/foobar.txt, 1 B',
 					'test/foo.txt, 0 B',
+					'3 files, 11 B',
 					''
 				].join('\n'));
 				done();
@@ -329,7 +335,7 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			var child = exec(util.format('%s/../bin/scandir -r -l 1 %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/foo.txt, 0 B\n');
+				assert.equal(stdout, 'test/foo.txt, 0 B\n1 file, 0 B\n');
 				done();
 			});
 		});
@@ -339,7 +345,7 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			var child = exec(util.format('%s/../bin/scandir -r -g 4 %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/baz/qux, 5 B\n');
+				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
 		});
@@ -349,7 +355,7 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			var child = exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/baz/qux, 5 B\n');
+				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
 		});
