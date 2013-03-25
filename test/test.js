@@ -219,6 +219,46 @@ describe('scandir lib', function(){
 			});
 		});
 	});
+
+	describe('When scanning test dir recursive with application media filter', function(){
+		it('should find 2 files', function(done){
+			var
+			scan = scandir.create(),
+			foundFile = 0,
+			files = {
+				'test.js': true,
+				'qux': true
+			};
+			scan.on('file' , function(file, stats){
+				assert(files[path.basename(file)]);
+				foundFile++;
+			});
+			scan.on('end' , function(){
+				assert.deepEqual(foundFile, 2);
+				done();
+			});
+			scan.scan({
+				dir: __dirname,
+				recursive: true,
+				media: 'application'
+			});
+		});
+	});
+
+	describe('When scanning test dir recursive with an invalid media filter', function(){
+		it('should throw an error', function(done){
+			var scan = scandir.create();
+			scan.on('error' , function(error){
+				assert.strictEqual(error.code, 'EINVALIDMEDIA');
+				done();
+			});
+			scan.scan({
+				dir: __dirname,
+				recursive: true,
+				media: 'foo'
+			});
+		});
+	});
 });
 
 
@@ -369,8 +409,33 @@ describe('scandir app', function(){
 				assert.equal(stderr, 'Invalid range size (greaterthan and lowerthan value)\n');
 				done();
 			});
-
 		});
 	});
 
+	describe('When scanning test dir an invalid media type', function(){
+		it('should throw an error', function(done){
+			var child = exec(util.format('%s/../bin/scandir -m foo %s', __dirname, path.basename(__dirname)),
+				function (error, stdout, stderr) {
+				assert.equal(stderr, '!!! Invalid media\n');
+				done();
+			});
+		});
+	});
+
+	describe('When scanning test dir recursive with text media filter', function(){
+		it('should find 3 files', function(done){
+
+			var child = exec(util.format('%s/../bin/scandir -m text -r %s', __dirname, path.basename(__dirname)),
+				function (error, stdout, stderr) {
+				assert.equal(stdout, [
+					'test/bar.txt, 10 B',
+					'test/baz/quux/foobar.txt, 1 B',
+					'test/foo.txt, 0 B',
+					'3 files, 11 B',
+					''
+				].join('\n'));
+				done();
+			});
+		});
+	});
 });
