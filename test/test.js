@@ -424,7 +424,6 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with text media filter', function(){
 		it('should find 3 files', function(done){
-
 			var child = exec(util.format('%s/../bin/scandir -m text -r %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [

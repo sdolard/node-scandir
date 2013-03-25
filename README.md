@@ -27,6 +27,7 @@ A lib and a cli that returns filepath list contains in dirs
     -r, --recursive                             scan dir recursive
     -w, --wildcard <wildcard>                   wildcard
     -e, --expression <regexp>                   regular expression
+    -m, --media <media>                         mime type media: application|audio|chemical|image|message|model|text|video|x-conference
     -i, --insensitive                           case insensitive. Default to false
     -g, --greaterthan <size[B|kB|MB|GB|TB|EB]>  return files greater than size (Bytes)
     -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    return files lower than size (Bytes)
@@ -35,6 +36,7 @@ A lib and a cli that returns filepath list contains in dirs
     -d, --debug
 
 ```
+
 
 ## LIB
 ### ScanDir ctor
