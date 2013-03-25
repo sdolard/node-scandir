@@ -1,10 +1,10 @@
 {
   "name": "scandir",
-  "version": "0.0.5",
-  "description": "simple recursive directory scan",
+  "version": "0.0.6",
+  "description": "recursive directory scan with filtering features",
   "main": "lib/scandir.js",
   "bin": {
-    "scandir": "bin/scandir"
+    "scandir": "./bin/scandir"
   },
   "directories": {
     "test": "test"
@@ -25,6 +25,9 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "gitHead": "93b6c7035fcffaf7cd3473aebb7eaba278bc68f5",
+  "engines" : {
+    "node" : ">=0.8.0"
+    },
   "dependencies": {
     "commander": "1.x.x",
     "mime": "1.2.x"
