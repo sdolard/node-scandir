@@ -1,6 +1,6 @@
 {
   "name": "scandir",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "recursive directory scan with filtering features",
   "main": "lib/scandir.js",
   "bin": {
@@ -10,7 +10,7 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "jsrevival -p \"describe, it\" -o \"properties: false, maxlen: 0, debug: false, bitwise: false, eqeq: false, newcap: false, undef: false, unparam: false, vars: false\" -r cli-hide-valid -R lib/ test/",
+    "pretest": "jsrevival -p \"describe, it\" -o \"properties: false, maxlen: 0, debug: false, bitwise: false, eqeq: false, newcap: false, unparam: false, vars: false, passfail: false\" -r cli-hide-valid -R lib/ test/",
     "test": "mocha"
   },
   "repository": {
@@ -33,7 +33,7 @@
     "mime": "1.2.x"
   },
    "devDependencies" : {
-    "jsrevival": "0.1.x",
+    "jsrevival": "0.2.x",
     "mocha": "x.x.x"
   }
 }

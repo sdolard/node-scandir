@@ -5,6 +5,8 @@ util = require('util'),
 exec = require('child_process').exec,
 scandir = require('../lib/scandir');
 
+/*jslint unparam: true*/
+
 describe('scandir lib', function(){
 	describe('When scanning a file', function(){
 		it('should find this files', function(done){
@@ -268,7 +270,7 @@ describe('scandir lib', function(){
 describe('scandir app', function(){
 	describe('When scanning a file', function(){
 		it('should find this files', function(done){
-			var child = exec(util.format('%s/../bin/scandir %s/foo.txt', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir %s/foo.txt', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
 					'test/foo.txt, 0 B',
@@ -281,18 +283,17 @@ describe('scandir app', function(){
 
 	describe('When scanning test/baz dir not recursive', function(){
 		it('should find 1 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir %s/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
 			});
-
 		});
 	});
 
 	describe('When scanning test/baz dir recursive', function(){
 		it('should find 2 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir -r %s/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
 					'test/baz/quux/foobar.txt, 1 B',
@@ -309,7 +310,7 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with string filter', function(){
 		it('should find 1 files', function(done){
 
-			var child = exec(util.format('%s/../bin/scandir -e qux -r %s/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -e qux -r %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
@@ -320,7 +321,7 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with string insensitive filter', function(){
 		it('should find 1 files', function(done){
 
-			var child = exec(util.format('%s/../bin/scandir -i -e QUX -r %s/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -i -e QUX -r %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
@@ -331,7 +332,7 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with regexp filter', function(){
 		it('should find 2 files', function(done){
 
-			var child = exec(util.format('%s/../bin/scandir -e "^\\w{3}\\.txt$" -r %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -e "^\\w{3}\\.txt$" -r %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
 					'test/bar.txt, 10 B',
@@ -347,7 +348,7 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with wildcard filter', function(){
 		it('should find 3 files', function(done){
 
-			var child = exec(util.format('%s/../bin/scandir -w "*.txt" -r %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -w "*.txt" -r %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
 					'test/bar.txt, 10 B',
@@ -363,7 +364,7 @@ describe('scandir app', function(){
 
 	describe('When scanning an invalid dir', function(){
 		it('should warn', function(done){
-			var child = exec(util.format('%s/../bin/scandir noneexistsdir', __dirname),
+			exec(util.format('%s/../bin/scandir noneexistsdir', __dirname),
 				function (error, stdout, stderr) {
 				assert.equal(stderr, '!!! Path not found: \"noneexistsdir\"\n');
 				done();
@@ -373,7 +374,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with lowerthan set to 1', function(){
 		it('should find 1 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir -r -l 1 %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -l 1 %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/foo.txt, 0 B\n1 file, 0 B\n');
 				done();
@@ -383,7 +384,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with greaterthan set to 4', function(){
 		it('should find 1 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir -r -g 4 %s/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -g 4 %s/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
@@ -393,7 +394,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with greaterthan set to 4, lowerthan set to 10', function(){
 		it('should find 1 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, 'test/baz/qux, 5 B\n1 file, 5 B\n');
 				done();
@@ -404,7 +405,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir invalid lowerthan greaterthan range', function(){
 		it('should throw an error', function(done){
-			var child = exec(util.format('%s/../bin/scandir -r -g 5 -l 4 %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -g 5 -l 4 %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stderr, 'Invalid range size (greaterthan and lowerthan value)\n');
 				done();
@@ -414,7 +415,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir an invalid media type', function(){
 		it('should throw an error', function(done){
-			var child = exec(util.format('%s/../bin/scandir -m foo %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -m foo %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stderr, '!!! Invalid media\n');
 				done();
@@ -424,7 +425,7 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with text media filter', function(){
 		it('should find 3 files', function(done){
-			var child = exec(util.format('%s/../bin/scandir -m text -r %s', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -m text -r %s', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
 					'test/bar.txt, 10 B',
