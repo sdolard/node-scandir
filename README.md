@@ -14,11 +14,7 @@ A lib and a cli that returns filepath list contains in dirs
 ## CLI
 
 ```
-  Usage: scandir [options] [command]
-
-  Commands:
-
-    *                      Directory to scan
+  Usage: scandir [options] <directory>
 
   Options:
 
@@ -34,6 +30,9 @@ A lib and a cli that returns filepath list contains in dirs
     -s, --showbrokenlink                        show broken symbolic link
     -R, --reporter <cli,json>                   default to cli
     -d, --debug
+    -p, --plugin <plugin name>                  Ex: -p video/vlc-encode-to-webm
+    -H, --displaypluginoptions                  Ex: -p video/vlc-encode-to-webm -H
+    -o, --pluginoptions <options>               Ex: -o "vb: 2000, ab: 44"
 
 ```
 
