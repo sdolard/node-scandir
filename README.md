@@ -30,9 +30,9 @@ A lib and a cli that returns filepath list contains in dirs
     -s, --showbrokenlink                        show broken symbolic link
     -R, --reporter <cli,json>                   default to cli
     -d, --debug
-    -p, --plugin <plugin name>                  Ex: -p video/vlc-encode-to-webm
-    -H, --displaypluginoptions                  Ex: -p video/vlc-encode-to-webm -H
-    -o, --pluginoptions <options>               Ex: -o "vb: 2000, ab: 44"
+    -p, --plugin <plugin name>                  Ex: -p video/vlc-convert
+    -H, --displaypluginoptions                  Ex: -p video/vlc-convert -H
+    -o, --pluginoptions <options>               Ex: -o "vc: 'VP80',vb: 2000, ab: 44"
 
 ```
 
