@@ -29,7 +29,7 @@ A lib and a cli that returns filepath list contains in dirs
     -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    return files lower than size (Bytes)
     -s, --showbrokenlink                        show broken symbolic link
     -R, --reporter <cli,json>                   default to cli
-    -d, --debug
+    -d, --debug                                 
     -L, --displayplugins                        Display available plugins
     -p, --plugin <plugin name>                  Ex: -p video/vlc-convert
     -H, --displaypluginoptions                  Ex: -p video/vlc-convert -H
