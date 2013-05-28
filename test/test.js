@@ -32,21 +32,22 @@ describe('scandir lib', function(){
 	});
 
 	describe('When scanning test dir not recursive', function(){
-		it('should find 3 files', function(done){
+		it('should find 4 files', function(done){
 			var
 			scan = scandir.create(),
 			foundFile = 0,
 			files = {
 				'bar.txt': true,
 				'foo.txt': true,
-				'test.js': true
+				'test.js': true,
+				'test-libutil.js': true
 			};
 			scan.on('file' , function(file, stats){
 				assert(files[path.basename(file)]);
 				foundFile++;
 			});
 			scan.on('end' , function(){
-				assert.deepEqual(foundFile, 3);
+				assert.deepEqual(foundFile, 4);
 				done();
 			});
 			scan.scan({
@@ -57,7 +58,7 @@ describe('scandir lib', function(){
 	});
 
 	describe('When scanning test dir recursive', function(){
-		it('should find 5 files', function(done){
+		it('should find 6 files', function(done){
 			var
 			scan = scandir.create(),
 			foundFile = 0,
@@ -66,14 +67,15 @@ describe('scandir lib', function(){
 				'foo.txt': true,
 				'test.js': true,
 				'foobar.txt': true,
-				'qux': true
+				'qux': true,
+				'test-libutil.js': true
 			};
 			scan.on('file' , function(file, stats){
 				assert(files[path.basename(file)]);
 				foundFile++;
 			});
 			scan.on('end' , function(){
-				assert.deepEqual(foundFile, 5);
+				assert.deepEqual(foundFile, 6);
 				done();
 			});
 			scan.scan({
@@ -108,20 +110,21 @@ describe('scandir lib', function(){
 	});
 
 	describe('When scanning test dir recursive with greaterthan set to 9', function(){
-		it('should find 2 files', function(done){
+		it('should find 3 files', function(done){
 			var
 			scan = scandir.create(),
 			foundFile = 0,
 			files = {
 				'test.js': true,
-				'bar.txt': true
+				'bar.txt': true,
+				'test-libutil.js': true
 			};
 			scan.on('file' , function(file, stats){
 				assert(files[path.basename(file)]);
 				foundFile++;
 			});
 			scan.on('end' , function(){
-				assert.deepEqual(foundFile, 2);
+				assert.deepEqual(foundFile, 3);
 				done();
 			});
 			scan.scan({
@@ -223,20 +226,21 @@ describe('scandir lib', function(){
 	});
 
 	describe('When scanning test dir recursive with application media filter', function(){
-		it('should find 2 files', function(done){
+		it('should find 3 files', function(done){
 			var
 			scan = scandir.create(),
 			foundFile = 0,
 			files = {
 				'test.js': true,
-				'qux': true
+				'qux': true,
+				'test-libutil.js': true
 			};
 			scan.on('file' , function(file, stats){
 				assert(files[path.basename(file)]);
 				foundFile++;
 			});
 			scan.on('end' , function(){
-				assert.deepEqual(foundFile, 2);
+				assert.deepEqual(foundFile, 3);
 				done();
 			});
 			scan.scan({
