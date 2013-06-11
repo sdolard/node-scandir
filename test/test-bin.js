@@ -360,7 +360,7 @@ describe('scandir app', function(){
 		it('should warn', function(done){
 			exec(util.format('%s/../bin/scandir noneexistsdir', __dirname),
 				function (error, stdout, stderr) {
-				assert.equal(stderr, '!!! Path not found: \"noneexistsdir\"\n');
+				assert.equal(stderr, 'Path not found: \"noneexistsdir\"\n');
 				done();
 			});
 		});
@@ -411,7 +411,7 @@ describe('scandir app', function(){
 		it('should throw an error', function(done){
 			exec(util.format('%s/../bin/scandir -m foo %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stderr, '!!! Invalid media\n');
+				assert.equal(stderr, 'Invalid media\n');
 				done();
 			});
 		});

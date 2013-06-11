@@ -30,7 +30,8 @@
     },
   "dependencies": {
     "commander": "1.x.x",
-    "mime": "1.2.x"
+    "mime": "1.2.x",
+    "ansi": "0.2.x"
   },
    "devDependencies" : {
     "jsrevival": "0.2.x",
