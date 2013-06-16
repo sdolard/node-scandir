@@ -27,9 +27,9 @@ A lib and a cli that returns filepath list contains in dirs
     -i, --insensitive                           case insensitive. Default to false
     -g, --greaterthan <size[B|kB|MB|GB|TB|EB]>  return files greater than size (Bytes)
     -l, --lowerthan <size[B|kB|MB|GB|TB|EB]>    return files lower than size (Bytes)
-    -s, --showbrokenlink                        show broken symbolic link
+    -s, --stoponerror                           stop scan on first error. Default to false
     -R, --reporter <cli,json>                   default to cli
-    -d, --debug                                 
+    -d, --debug
     -L, --displayplugins                        Display available plugins
     -p, --plugin <plugin name>                  Ex: -p video/vlc-convert
     -H, --displaypluginoptions                  Ex: -p video/vlc-convert -H
