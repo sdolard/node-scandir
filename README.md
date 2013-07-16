@@ -1,4 +1,4 @@
-node-scandir [![Build Status](https://travis-ci.org/sdolard/node-scandir.png?branch=master)](https://travis-ci.org/sdolard/node-scandir)
+node-scandir [![Build Status](https://travis-ci.org/sdolard/node-scandir.png?branch=master)](https://travis-ci.org/sdolard/node-scandir)[![Build Dependency](https://david-dm.org/sdolard/node-scandir.png)](https://david-dm.org/sdolard/node-scandir)
 A lib and a cli that returns filepath list contains in dirs
 ============
 
@@ -63,9 +63,10 @@ A lib and a cli that returns filepath list contains in dirs
     * @params [{boolean}]config.recursive. Default to true.
     * @params [{boolean}]config.insensitive. Default to false. Only available with String filter
     * @params [{RegExp|String|undefined}] config.filter. String === exact match
-    * @params [{Number}] config.greaterthan. Bytes value
-    * @params [{Number}] config.lowerthan. Bytes value
-    * @params [{boolean}]config.showbrokenlink. Default to false.
+    * @params [{Number}] config.greaterthan. Bytes value. Min value 0.
+    * @params [{Number}] config.lowerthan. Bytes value. Min value 1.
+    * @params [{string}]config.media.
+    * @params [{boolean}]config.stopOnError. Default to false.
     */
     ScanDir.prototype.scan
 
