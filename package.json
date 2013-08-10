@@ -1,6 +1,6 @@
 {
   "name": "scandir",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "recursive directory scan with filtering features",
   "main": "lib/scandir.js",
   "bin": {
@@ -29,7 +29,7 @@
     "node" : ">=0.8.0"
     },
   "dependencies": {
-    "commander": "1.x.x",
+    "commander": "2.x.x",
     "mime": "1.2.x",
     "ansi": "0.2.x"
   },
