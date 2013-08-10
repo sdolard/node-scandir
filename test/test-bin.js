@@ -5,7 +5,7 @@ util = require('util'),
 exec = require('child_process').exec,
 scandir = require('../lib/scandir');
 
-/*jslint unparam: true*/
+/*jslint unparam: true, node: true*/
 
 describe('scandir lib', function(){
 	describe('When scanning a file', function(){
@@ -267,9 +267,10 @@ describe('scandir app', function(){
 			exec(util.format('%s/../bin/scandir %s/bin/foo.txt', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'test/bin/foo.txt, 0 B',
-					'1 file, 0 B',
-					''].join('\n'));
+					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'    0 B 1 file',
+					''
+					].join('\n'));
 				done();
 			});
 		});
@@ -279,7 +280,11 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			exec(util.format('%s/../bin/scandir %s/bin/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/baz/qux, 5 B\n1 file, 5 B\n');
+				assert.equal(stdout, [
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B 1 file',
+					'',
+				].join('\n'));
 				done();
 			});
 		});
@@ -290,10 +295,10 @@ describe('scandir app', function(){
 			exec(util.format('%s/../bin/scandir -r %s/bin/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'test/bin/baz/quux/foobar.txt, 1 B',
-					'test/bin/baz/qux, 5 B',
-					'2 files, 6 B',
-					''
+					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    6 B 2 files',
+					'',
 				].join('\n'));
 				done();
 			});
@@ -306,7 +311,11 @@ describe('scandir app', function(){
 
 			exec(util.format('%s/../bin/scandir -e qux -r %s/bin/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/baz/qux, 5 B\n1 file, 5 B\n');
+				assert.equal(stdout, [
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B 1 file',
+					'',
+				].join('\n'));
 				done();
 			});
 		});
@@ -317,7 +326,11 @@ describe('scandir app', function(){
 
 			exec(util.format('%s/../bin/scandir -i -e QUX -r %s/bin/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/baz/qux, 5 B\n1 file, 5 B\n');
+				assert.equal(stdout, [
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B 1 file',
+					'',
+				].join('\n'));
 				done();
 			});
 		});
@@ -329,9 +342,9 @@ describe('scandir app', function(){
 			exec(util.format('%s/../bin/scandir -e "^\\w{3}\\.txt$" -r %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'test/bin/bar.txt, 10 B',
-					'test/bin/foo.txt, 0 B',
-					'2 files, 10 B',
+					'   10 B  5 mar 13:29 test/bin/bar.txt',
+					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   10 B 2 files',
 					''
 				].join('\n'));
 				done();
@@ -345,10 +358,10 @@ describe('scandir app', function(){
 			exec(util.format('%s/../bin/scandir -w "*.txt" -r %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'test/bin/bar.txt, 10 B',
-					'test/bin/baz/quux/foobar.txt, 1 B',
-					'test/bin/foo.txt, 0 B',
-					'3 files, 11 B',
+					'   10 B  5 mar 13:29 test/bin/bar.txt',
+					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
+					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   11 B 3 files',
 					''
 				].join('\n'));
 				done();
@@ -370,7 +383,11 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			exec(util.format('%s/../bin/scandir -r -l 1 %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/foo.txt, 0 B\n1 file, 0 B\n');
+				assert.equal(stdout, [
+					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'    0 B 1 file',
+					''
+				].join('\n'));
 				done();
 			});
 		});
@@ -380,7 +397,11 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			exec(util.format('%s/../bin/scandir -r -g 4 %s/bin/baz', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/baz/qux, 5 B\n1 file, 5 B\n');
+				assert.equal(stdout, [
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B 1 file',
+					''
+				].join('\n'));
 				done();
 			});
 		});
@@ -390,7 +411,11 @@ describe('scandir app', function(){
 		it('should find 1 files', function(done){
 			exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
-				assert.equal(stdout, 'test/bin/baz/qux, 5 B\n1 file, 5 B\n');
+				assert.equal(stdout, [
+					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B 1 file',
+					''
+				].join('\n'));
 				done();
 			});
 		});
@@ -422,10 +447,10 @@ describe('scandir app', function(){
 			exec(util.format('%s/../bin/scandir -m text -r %s/bin', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'test/bin/bar.txt, 10 B',
-					'test/bin/baz/quux/foobar.txt, 1 B',
-					'test/bin/foo.txt, 0 B',
-					'3 files, 11 B',
+					'   10 B  5 mar 13:29 test/bin/bar.txt',
+					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
+					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   11 B 3 files',
 					''
 				].join('\n'));
 				done();
