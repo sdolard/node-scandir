@@ -209,7 +209,7 @@ describe('scandir lib', function(){
 			var
 			scan = scandir.create();
 			scan.on('error' , function(error){
-				assert.strictEqual(error.code, 'ENOENT');
+				assert.strictEqual(error.code, 'EFIRSTNOENT');
 				done();
 			});
 
@@ -264,10 +264,10 @@ describe('scandir lib', function(){
 describe('scandir app', function(){
 	describe('When scanning a file', function(){
 		it('should find this files', function(done){
-			exec(util.format('%s/../bin/scandir %s/bin/foo.txt', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir %s/bin/foo.txt  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'    0 B test/bin/foo.txt',
 					'    0 B 1 file',
 					''
 					].join('\n'));
@@ -278,10 +278,10 @@ describe('scandir app', function(){
 
 	describe('When scanning test/baz dir not recursive', function(){
 		it('should find 1 files', function(done){
-			exec(util.format('%s/../bin/scandir %s/bin/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir %s/bin/baz  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B test/bin/baz/qux',
 					'    5 B 1 file',
 					'',
 				].join('\n'));
@@ -292,11 +292,11 @@ describe('scandir app', function(){
 
 	describe('When scanning test/baz dir recursive', function(){
 		it('should find 2 files', function(done){
-			exec(util.format('%s/../bin/scandir -r %s/bin/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r %s/bin/baz  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    1 B test/bin/baz/quux/foobar.txt',
+					'    5 B test/bin/baz/qux',
 					'    6 B 2 files',
 					'',
 				].join('\n'));
@@ -309,10 +309,10 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with string filter', function(){
 		it('should find 1 files', function(done){
 
-			exec(util.format('%s/../bin/scandir -e qux -r %s/bin/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -e qux -r %s/bin/baz  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B test/bin/baz/qux',
 					'    5 B 1 file',
 					'',
 				].join('\n'));
@@ -324,10 +324,10 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with string insensitive filter', function(){
 		it('should find 1 files', function(done){
 
-			exec(util.format('%s/../bin/scandir -i -e QUX -r %s/bin/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -i -e QUX -r %s/bin/baz  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B test/bin/baz/qux',
 					'    5 B 1 file',
 					'',
 				].join('\n'));
@@ -339,11 +339,11 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with regexp filter', function(){
 		it('should find 2 files', function(done){
 
-			exec(util.format('%s/../bin/scandir -e "^\\w{3}\\.txt$" -r %s/bin', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -e "^\\w{3}\\.txt$" -r %s/bin  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'   10 B  5 mar 13:29 test/bin/bar.txt',
-					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   10 B test/bin/bar.txt',
+					'    0 B test/bin/foo.txt',
 					'   10 B 2 files',
 					''
 				].join('\n'));
@@ -355,12 +355,12 @@ describe('scandir app', function(){
 	describe('When scanning test dir recursive with wildcard filter', function(){
 		it('should find 3 files', function(done){
 
-			exec(util.format('%s/../bin/scandir -w "*.txt" -r %s/bin', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -w "*.txt" -r %s/bin  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'   10 B  5 mar 13:29 test/bin/bar.txt',
-					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
-					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   10 B test/bin/bar.txt',
+					'    1 B test/bin/baz/quux/foobar.txt',
+					'    0 B test/bin/foo.txt',
 					'   11 B 3 files',
 					''
 				].join('\n'));
@@ -381,10 +381,10 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with lowerthan set to 1', function(){
 		it('should find 1 files', function(done){
-			exec(util.format('%s/../bin/scandir -r -l 1 %s/bin', __dirname, path.basename(__dirname)),
-				function (error, stdout, stderr) {
+			exec(util.format('%s/../bin/scandir -r -l 1 %s/bin  -R unittest', __dirname, path.basename(__dirname)),
+				function (error, stdout, stderr)  {
 				assert.equal(stdout, [
-					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'    0 B test/bin/foo.txt',
 					'    0 B 1 file',
 					''
 				].join('\n'));
@@ -395,10 +395,10 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with greaterthan set to 4', function(){
 		it('should find 1 files', function(done){
-			exec(util.format('%s/../bin/scandir -r -g 4 %s/bin/baz', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -g 4 %s/bin/baz  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B test/bin/baz/qux',
 					'    5 B 1 file',
 					''
 				].join('\n'));
@@ -409,10 +409,10 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with greaterthan set to 4, lowerthan set to 10', function(){
 		it('should find 1 files', function(done){
-			exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s/bin', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -r -g 4 -l 10 %s/bin  -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'    5 B  5 mar 12:51 test/bin/baz/qux',
+					'    5 B test/bin/baz/qux',
 					'    5 B 1 file',
 					''
 				].join('\n'));
@@ -444,12 +444,12 @@ describe('scandir app', function(){
 
 	describe('When scanning test dir recursive with text media filter', function(){
 		it('should find 3 files', function(done){
-			exec(util.format('%s/../bin/scandir -m text -r %s/bin', __dirname, path.basename(__dirname)),
+			exec(util.format('%s/../bin/scandir -m text -r %s/bin -R unittest', __dirname, path.basename(__dirname)),
 				function (error, stdout, stderr) {
 				assert.equal(stdout, [
-					'   10 B  5 mar 13:29 test/bin/bar.txt',
-					'    1 B  5 mar 12:48 test/bin/baz/quux/foobar.txt',
-					'    0 B  5 mar 12:48 test/bin/foo.txt',
+					'   10 B test/bin/bar.txt',
+					'    1 B test/bin/baz/quux/foobar.txt',
+					'    0 B test/bin/foo.txt',
 					'   11 B 3 files',
 					''
 				].join('\n'));
