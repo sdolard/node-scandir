@@ -262,6 +262,24 @@ describe('scandir lib', function(){
 
 
 describe('scandir app', function(){
+	describe('When scanning a file without dir', function(){
+		it('should find this files in current', function(done){
+			exec(util.format('%s/../bin/scandir -R unittest', __dirname),
+				function (error, stdout, stderr) {
+				assert.equal(stdout, [
+					'   84 B .gitignore',
+					'   61 B .travis.yml',
+					'  3.0kB README.md',
+				    '  1.0kB package.json',
+				    '  4.2kB 4 files',
+					''
+					].join('\n'));
+				done();
+			});
+		});
+	});
+
+
 	describe('When scanning a file', function(){
 		it('should find this files', function(done){
 			exec(util.format('%s/../bin/scandir %s/bin/foo.txt  -R unittest', __dirname, path.basename(__dirname)),
